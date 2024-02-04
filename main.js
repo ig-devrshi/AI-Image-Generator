@@ -11,7 +11,7 @@ const updateImageCard = (imgDataArray) => {
         imgElement.src = aiGeneratedImg;
 
         // When the image is loaded Remove the loading class and set Attributes
-        imgElement.onload = () =>{
+        imgElement.onload = () => {
             imgCard.classList.remove("loading");
             downloadBtn.setAttribute("href", aiGeneratedImg);
             downloadBtn.setAttribute("download", `${new Date().getTime()}.jpg`);
@@ -19,8 +19,8 @@ const updateImageCard = (imgDataArray) => {
     });
 }
 
-const OPENAI_API_KEY = "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";
-let isImageGenerating = false;
+const OPENAI_API_KEY = "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";
+// let isImageGenerating = false;
 const generateAiImages = async (userPrompt, userImgQuantity) => {
     try {
         // Send a request to the AI API to generate images based on user inputs
@@ -38,23 +38,23 @@ const generateAiImages = async (userPrompt, userImgQuantity) => {
             })
         });
 
-        if(!response.ok) throw new Error("Failed to generate images! Please try again.");
+        if (!response.ok) throw new Error("Failed to generate images! Please try again.");
 
         const { data } = await response.json(); //Get data from the response
         updateImageCard([...data]);
     } catch (error) {
         alert(error.message);
     }
-    finally{
-        isImageGenerating = false;
-    }
+    // finally{
+    //     isImageGenerating = false;
+    // }
 }
 
 const handleFormSubmission = (e) => {
     e.preventDefault();
-    if(isImageGenerating) return;
-    isImageGenerating = true;
-    console.log(e.srcElement);
+    // if(isImageGenerating) return;
+    // isImageGenerating = true;
+    // console.log(e.srcElement);
 
     // Getting User input and image quantity from the form
     const userPrompt = e.srcElement[0].value;

@@ -163,12 +163,15 @@
 }
 
 @media screen and (max-width : 700px ) {
+    .image-generator {
+        height: 70vh;
+    }
     .image-generator h1{
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
     .image-generator p{
-        font-size: .5rem;
+        font-size: .6rem;
     }
 
     .image-generator .generate-form{
@@ -206,6 +209,9 @@
 }
 
 @media screen and (max-width : 550px ){
+    .image-generator {
+        height: 70vh;
+    }
     .image-gallery .img-card{
         width: 100%;
     }
