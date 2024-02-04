@@ -19,7 +19,7 @@ const updateImageCard = (imgDataArray) => {
     });
 }
 
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 // let isImageGenerating = false;
 const generateAiImages = async (userPrompt, userImgQuantity) => {
     try {
@@ -33,7 +33,7 @@ const generateAiImages = async (userPrompt, userImgQuantity) => {
             body: JSON.stringify({
                 prompt: userPrompt,
                 n: parseInt(userImgQuantity),
-                size: "512x512",
+                size: "1024x1024",
                 response_format: "b64_json"
             })
         });
