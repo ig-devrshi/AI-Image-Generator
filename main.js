@@ -19,7 +19,7 @@ const updateImageCard = (imgDataArray) => {
     });
 }
 
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 // let isImageGenerating = false;
 const generateAiImages = async (userPrompt, userImgQuantity) => {
     try {
