@@ -22,21 +22,23 @@ const updateImageCard = (imgDataArray) => {
 const OPENAI_API_KEY = "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";
 // let isImageGenerating = false;
 const generateAiImages = async (userPrompt, userImgQuantity) => {
-    try {
-        // Send a request to the AI API to generate images based on user inputs
-        const response = await fetch("https://api.openai.com/v1/images/generations", {
-            method: "POST",
+    const options = {
+        method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${OPENAI_API_KEY}`
             },
             body: JSON.stringify({
-                "prompt": userPrompt,
-                "n": parseInt(userImgQuantity),
-                "size": "1024x1024",
-                "response_format": "b64_json"
+                prompt: userPrompt,
+                n: parseInt(userImgQuantity),
+                size: "1024x1024",
+                response_format: "b64_json"
             })
-        });
+    }
+    
+    try {
+        // Send a request to the AI API to generate images based on user inputs
+        const response = await fetch("https://api.openai.com/v1/images/generations", options)
 
         if (!response.ok) throw new Error("Failed to generate images! Please try again.");
 
