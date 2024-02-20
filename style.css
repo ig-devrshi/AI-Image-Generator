@@ -210,10 +210,13 @@
 
 @media screen and (max-width : 550px ){
     .image-generator {
-        height: 70vh;
+        height: 60vh;
     }
     .image-gallery .img-card{
         width: 100%;
+    }
+    .image-generator h1{
+        font-size: 1rem;
     }
 }
 
