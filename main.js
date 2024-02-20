@@ -1,6 +1,9 @@
 const generateForm = document.querySelector(".generate-form");
+const generateBtn = document.querySelector(".generate-btn")
 const imageGallery = document.querySelector(".image-gallery");
 const downloadBtn = document.querySelector(".download-btn");
+const OPENAI_API_KEY = "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";
+let isImageGenerating = false;
 
 const updateImageCard = (imgDataArray) => {
     imgDataArray.forEach((imgObject, index) => {
@@ -15,27 +18,28 @@ const updateImageCard = (imgDataArray) => {
             imgCard.classList.remove("loading");
             downloadBtn.setAttribute("href", aiGeneratedImg);
             downloadBtn.setAttribute("download", `${new Date().getTime()}.jpg`);
+            
         }
     });
 }
 
-const OPENAI_API_KEY = "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";
-// let isImageGenerating = false;
+
+
 const generateAiImages = async (userPrompt, userImgQuantity) => {
     const options = {
         method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENAI_API_KEY}`
-            },
-            body: JSON.stringify({
-                prompt: userPrompt,
-                n: parseInt(userImgQuantity),
-                size: "1024x1024",
-                response_format: "b64_json"
-            })
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+            prompt: userPrompt,
+            n: parseInt(userImgQuantity),
+            size: "1024x1024",
+            response_format: "b64_json"
+        })
     }
-    
+
     try {
         // Send a request to the AI API to generate images based on user inputs
         const response = await fetch("https://api.openai.com/v1/images/generations", options)
@@ -47,24 +51,30 @@ const generateAiImages = async (userPrompt, userImgQuantity) => {
     } catch (error) {
         alert(error.message);
     }
-    // finally{
-    //     isImageGenerating = false;
-    // }
+    finally{
+        isImageGenerating = false;
+    }
 }
 
 const handleFormSubmission = (e) => {
     e.preventDefault();
-    // if(isImageGenerating) return;
-    // isImageGenerating = true;
+    if(isImageGenerating) return;
+    
     // console.log(e.srcElement);
 
     // Getting User input and image quantity from the form
     const userPrompt = e.srcElement[0].value;
     const userImgQuantity = e.srcElement[1].value;
 
+
+    //
+    generateBtn.setAttribute("disabled", true);
+    generateBtn.innerText = "Creating";
+    isImageGenerating = true;
+
     // Creating HTML markup for image cards with loading state
     const imageCardMarkup = Array.from({ length: userImgQuantity }, () =>
-        `<div class="img-card loading">
+    `<div class="img-card loading">
         <img src="Images/images/loader.svg" alt="image">
         <a href="#" class="download-btn">
             <img src="Images/images/download.svg" alt="download">
